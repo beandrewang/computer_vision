@@ -2,6 +2,7 @@
 % You don't need to edit it.
 
 function edgedetector()
+	pkg load image;
     img = double(rgb2gray(imread('buoys.jpg')));
 	
     edges = DetectVerticalEdges(img);
