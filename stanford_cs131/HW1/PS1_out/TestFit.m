@@ -6,6 +6,11 @@
 % Run the script several times to see different data.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+clc;
+clear all;
+close all;
+
+
 N=10;
 sigma = .1; %additive noise on good points
 outlier=0; %percent of totally random outliers to add
