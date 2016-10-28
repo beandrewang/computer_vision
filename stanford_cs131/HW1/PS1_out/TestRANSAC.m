@@ -23,7 +23,7 @@ maxIter = 100;
 
 %With our error function, this is a bound on abs(distance^2 - R^2).
 %Points with error < this are called inliers.
-maxInlierError = 10.0;
+maxInlierError = 8.0;
 
 %Number of inliers required to call a fit "good" (not counting the initial
 %3 points that were used to fit the circle)
