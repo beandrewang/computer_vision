@@ -32,6 +32,19 @@ function match = SIFTSimpleMatcher(descriptor1, descriptor2, thresh)
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+    N1 = size(descriptor1, 1); 
+    N2 = size(descriptor2, 1);
+    
+    for i = 1 : N1
+        for j = 1 : N2
+            distance(j) = sqrt(sum((descriptor1(i, :) - descriptor2(j, :)) .^ 2));
+        end
+        
+        [sortedDis, idx] = sort(distance);
+        if(sortedDis(1) < sortedDis(2) * thresh)
+            match = [match; [i, idx(1)]];
+        end
+    end
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
