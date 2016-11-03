@@ -13,10 +13,12 @@
 %% Clear all
 clc; close all; clc;
 
-%% Load a list of images (Change file name if you want to use other images)
-imgList = dir('./data/yosemite*.jpg');
+pkg load image;
 
-saveFileName = 'yosemite.jpg';
+%% Load a list of images (Change file name if you want to use other images)
+imgList = dir('./data/trees*.jpg');
+
+saveFileName = 'trees.jpg';
 
 %% Add path
 addpath('KeypointDetect');
