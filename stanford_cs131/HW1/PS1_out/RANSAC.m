@@ -42,6 +42,8 @@ function [x, y, R] = RANSAC(D, maxIter, maxInlierError, goodFitThresh)
 %               YOUR CODE HERE: Fill in the above two variables.               %
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		[seedSet, nonSeedSet] = RandomlySplitData(D, seedSetSize);
         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
@@ -58,6 +60,8 @@ function [x, y, R] = RANSAC(D, maxIter, maxInlierError, goodFitThresh)
 %               YOUR CODE HERE: Fill in the above 3 variables.                 %
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		[xx, yy, RR] = FitCircle(seedSet);
         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
@@ -73,6 +77,8 @@ function [x, y, R] = RANSAC(D, maxIter, maxInlierError, goodFitThresh)
 %                  YOUR CODE HERE. Fill in the above variable.                 %
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		nonSeedErrors = ComputeErrors(xx, yy, RR, nonSeedSet);
         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
@@ -90,6 +96,8 @@ function [x, y, R] = RANSAC(D, maxIter, maxInlierError, goodFitThresh)
 %                  YOUR CODE HERE. Fill in the above variable.                 %
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		nonSeedIsInlier = (nonSeedErrors < (ones(nonSeedSetSize, 1) .* maxInlierError));
         
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
@@ -114,6 +122,12 @@ function [x, y, R] = RANSAC(D, maxIter, maxInlierError, goodFitThresh)
 %                  YOUR CODE HERE. Fill in the above variable.                 %
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		inliers = seedSet;
+		if(sum(nonSeedIsInlier(:)) >= goodFitThresh)
+			nonSeedInlier = nonSeedSet(find(1 == nonSeedIsInlier), :);
+			inliers = [seedSet; nonSeedInlier];
+		end
+		seedSet = inliers;
             
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
@@ -130,6 +144,8 @@ function [x, y, R] = RANSAC(D, maxIter, maxInlierError, goodFitThresh)
 %                 YOUR CODE HERE. Fill in the above 3 variables.               %
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+			[xx, yy, RR] = FitCircle(seedSet);
             
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %
@@ -147,6 +163,9 @@ function [x, y, R] = RANSAC(D, maxIter, maxInlierError, goodFitThresh)
 %                  YOUR CODE HERE. Fill in the above variable.                 %
 %                                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+			seedErrors = ComputeErrors(xx, yy, RR, seedSet);
+			error = sum(seedErrors(:));
             
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                              %

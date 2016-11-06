@@ -24,9 +24,9 @@ function [x, y, R] = FitCircle(D)
 
 A = [D ones(n, 1)]; 
 b = D(:, 1) .^ 2 + D(:, 2) .^ 2;
-u = A \ b
+u = A \ b;
 
-x = u(1); y = u(2); q = u(3);		
+x = u(1) / 2; y = u(2) / 2; q = u(3);		
 R = sqrt(x ^ 2 + y ^ 2 + q);
 
 
