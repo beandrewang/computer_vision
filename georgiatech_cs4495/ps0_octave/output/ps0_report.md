@@ -33,8 +33,8 @@ the current pixel's.
 > Which looks better? Why?
 
 The blue with noise looks better. 
-Because the blue channel is much big than the green channel. So the SNR is small
-than the green channel. 
+Because the blue channel is much big than the green channel. So the SNR is 
+smaller than the green channel. 
 
 
 
