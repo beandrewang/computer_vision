@@ -35,18 +35,18 @@ function [H, theta, rho] = hough_lines_acc(BW, varargin)
     
     for i = 1 : h
         for j = 1 : w
-            cur_theta_index = 0;
             if(BW(i, j) == 1)
-                for cur_theta = theta
-                    cur_rho = i * cos(cur_theta) + j * sin(cur_theta);
-                    cur_theta_index = cur_theta_index + 1;
-                    cur_rho_index = max([floor(cur_rho - rho(1) / rhoStep) + 1, 1]);
-                    H(cur_rho_index, cur_theta_index) = \
-                            uint8(H(cur_rho_index, cur_theta_index) + 1);
+                for cur_theta_index = 1 : 180
+                    cur_theta = theta(cur_theta_index);
+                    cur_rho = j * cos(cur_theta) + i * sin(cur_theta);
+                    cur_rho_index = find(abs(rho - cur_rho) < rhoStep)(1);
+                    H(cur_rho_index, cur_theta_index) = H(cur_rho_index, cur_theta_index) + 1;
                 end
             end
             
         end  
     end
+    
+    H = uint8(H);
     
 endfunction
