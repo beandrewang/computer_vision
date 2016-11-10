@@ -8,10 +8,8 @@ clear all;
 %% 1-a
 img = imread(fullfile('input', 'ps1-input0.png'));  % already grayscale
 %% TODO: Compute edge image img_edges
-% img_edges = edge(img, 'Canny');
-% figure; imshow(img_edges);
-img_edges = edge(img, 'Canny', [25, 30], 1);
-% figure; imshow(img_edges)
+img_edges = edge(img, 'Canny');
+figure; imshow(img_edges)
 % save as output/ps1-1-a-1.png
 imwrite(img_edges, fullfile('output', 'ps1-1-a-1.png'));  
 
@@ -28,7 +26,7 @@ axis on, axis normal, hold on;
 colormap(gca, hot);
 
 %% 2-b
-peaks = hough_peaks(H, 10);  % defined in hough_peaks.m
+peaks = hough_peaks(H, 15);  % defined in hough_peaks.m
 %% TODO: Highlight peak locations on accumulator array, 
 % save as output/ps1-2-b-1.png
 figure;
@@ -39,3 +37,4 @@ plot(theta(peaks(:,2)), rho(peaks(:,1)),'s','color','white');
 print('output/ps1-2-b-1.png');
 
 %% TODO: Rest of your code here
+hough_lines_draw(img, 'output/ps1-2-c-1.png', peaks, rho, theta);

@@ -29,14 +29,13 @@ function peaks = hough_peaks(H, varargin)
   
     for i = 1 : numpeaks
         [r, c] = find(thresed_h == max(thresed_h(:)));
-        
-        window_r = ((r - floor(nHoodSize(1) / 2)) : 1 : \ 
-                     r + floor(nHoodSize(1) / 2));
-        window_c = ((c - floor(nHoodSize(2) / 2)) : 1 : \
-                     c + floor(nHoodSize(2) / 2));
+        r = r(1); c = c(1);
+        window_r = max([r - floor(nHoodSize(1) / 2), 1]) : 1 : \ 
+                   min([r + floor(nHoodSize(1) / 2), h]);
+        window_c = max([c - floor(nHoodSize(2) / 2), 1]) : 1 : \
+                   min([c + floor(nHoodSize(2) / 2), w]);
         
         thresed_h(window_r, window_c) = 0;
-        peaks(i, :) = [r(1), c(1)];
+        peaks(i, :) = [r, c];
     end
-    
 endfunction

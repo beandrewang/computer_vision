@@ -38,7 +38,6 @@ function [H, theta, rho] = hough_lines_acc(BW, varargin)
             cur_theta_index = 0;
             if(BW(i, j) == 1)
                 for cur_theta = theta
-                    % cur_theta = atan2(j, i);
                     cur_rho = i * cos(cur_theta) + j * sin(cur_theta);
                     cur_theta_index = cur_theta_index + 1;
                     cur_rho_index = floor(cur_rho - rho(1) / rhoStep) + 1;
