@@ -40,7 +40,7 @@ function [H, theta, rho] = hough_lines_acc(BW, varargin)
                 for cur_theta = theta
                     cur_rho = i * cos(cur_theta) + j * sin(cur_theta);
                     cur_theta_index = cur_theta_index + 1;
-                    cur_rho_index = floor(cur_rho - rho(1) / rhoStep) + 1;
+                    cur_rho_index = max([floor(cur_rho - rho(1) / rhoStep) + 1, 1]);
                     H(cur_rho_index, cur_theta_index) = \
                             uint8(H(cur_rho_index, cur_theta_index) + 1);
                 end

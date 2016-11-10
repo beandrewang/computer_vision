@@ -38,3 +38,40 @@ print('output/ps1-2-b-1.png');
 
 %% TODO: Rest of your code here
 hough_lines_draw(img, 'output/ps1-2-c-1.png', peaks, rho, theta);
+
+
+%% Use ps1-input0-noise.png - same image as before, but with noise. Compute a 
+% modestly smoothed version of this image by using a Gaussian filter. Make σ at
+% least a few pixels big.
+img_noise = imread('input/ps1-input0-noise.png');
+% figure, imshow(img_noise);
+
+% smooth it
+gauss_f = fspecial('gaussian', 11, 5);
+img_smoothed = imfilter(img_noise, gauss_f);
+% figure, imshow(img_smoothed);
+
+% save the smoothed img to output/ps1-3-a-1.png
+imwrite(img_smoothed, 'output/ps1-3-a-1.png');
+
+% find the edge
+img_noise_edges = edge(img_noise, 'canny');
+img_smoothed_edges = edge(img_smoothed, 'sobel');
+%figure, imshow(img_noise_edges);
+figure, imshow(img_smoothed_edges);
+imwrite(img_noise_edges, 'output/ps1-3-b-1.png');
+imwrite(img_smoothed_edges, 'output/ps1-3-b-2.png');
+
+% hough transform
+[H, theta, rho] = hough_lines_acc(img_smoothed_edges);
+
+peaks = hough_peaks(H, 20, 'Threshold', 0.4 * max(H(:)));  
+figure;
+imshow(H, [], 'XData', theta, 'YData', rho,'InitialMagnification', 'fit');
+xlabel('\theta'), ylabel('\rho');
+axis on, axis normal, hold on;
+plot(theta(peaks(:,2)), rho(peaks(:,1)),'s','color','white');
+print('output/ps1-3-c-1.png');
+
+hough_lines_draw(img_noise, 'output/ps1-3-c-2.png', peaks, rho, theta);
+
