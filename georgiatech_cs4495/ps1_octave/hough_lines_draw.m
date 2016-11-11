@@ -18,7 +18,7 @@ function hough_lines_draw(img, outfile, peaks, rho, theta)
         cur_rho = rho(peak(1));
         cur_theta = theta(peak(2));
        
-        y = (cur_rho - (x  - 1) * cos(cur_theta)) / sin(cur_theta) + 1;
+        y = (cur_rho - x * cos(cur_theta)) / sin(cur_theta);
        
         hold on; plot(x, y, 'color', 'green'); 
     end

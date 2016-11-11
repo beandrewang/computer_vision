@@ -27,11 +27,11 @@ function [H, theta, rho] = hough_lines_acc(BW, varargin)
     [h, w] = size(BW); 
     
     D = sqrt((h - 1) ^ 2 + (w - 1) ^ 2);
-    nrho = 2 * (ceil(D / rhoStep));
+    % nrho = 2 * (ceil(D / rhoStep));
     diagonal = rhoStep * ceil(D / rhoStep);
     rho = -diagonal : rhoStep : diagonal;
-    ntheta = length(theta);
-    H = zeros(nrho, ntheta);
+    % ntheta = length(theta);
+    H = zeros(length(rho), length(theta));
     
     for i = 1 : h
         for j = 1 : w
@@ -40,7 +40,8 @@ function [H, theta, rho] = hough_lines_acc(BW, varargin)
                     cur_theta = theta(cur_theta_index);
                     cur_rho = j * cos(cur_theta) + i * sin(cur_theta);
                     cur_rho_index = find(abs(rho - cur_rho) < rhoStep)(1);
-                    H(cur_rho_index, cur_theta_index) = H(cur_rho_index, cur_theta_index) + 1;
+                    H(cur_rho_index, cur_theta_index) = H(cur_rho_index, ...
+                        cur_theta_index) + 1;
                 end
             end
             
