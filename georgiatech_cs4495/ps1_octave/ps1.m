@@ -125,7 +125,7 @@ img_edges = edge(img_smoothed, 'canny', 6);
 figure, imshow(img_edges);
 imwrite(img_edges, 'output/ps1-5-a-2.png');
 
-
+%{
 H = hough_circles_acc(img_edges, 20);
 centers = hough_peaks(H, 10);
 figure;
@@ -146,24 +146,21 @@ for i = 1 : size(centers, 1)
     hold on; plot(y, x, 'color', 'green');
 end
 print('output/ps1-5-a-3.png');
+%}
 
 
-
-[centers, radii] = find_circles(img_edges, [20 50]);
+[centers, radii] = find_circles(img_edges, [15 50]);
 
 figure, imshow(img_mono);
-theta = -90 : 89;
+theta = 0 : 45;
 
-for r = 20 : 50
-    r_centers = centers(find(radii == r), :);
-
-    for i = 1 : size(r_centers, 1)
-        a = r_centers(i, 1);
-        b = r_centers(i, 2);
-        x = a + r * cos(theta);
-        y = b + r * sin(theta);
-        
-        hold on; plot(y, x, 'color', 'red');
-    end
+for i = 1 : length(radii)
+    radius = radii(i);
+    a = centers(i, 1);
+    b = centers(i, 2);
+    x = a + radius * cos(theta);
+    y = b + radius * sin(theta);
+    
+    hold on; plot(y, x, 'color', 'green');
 end
-
+print('output/ps1-5-b-1.png');

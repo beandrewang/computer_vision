@@ -7,7 +7,7 @@ function H = hough_circles_acc(BW, radius)
     % TODO: Your code here
     
     [h, w] = size(BW);
-    theta = -90 : 89;
+    theta = 0 : 45;
     nradius = length(radius);
     ntheta = length(theta);
     [r, c] = find(BW == 1);
