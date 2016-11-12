@@ -5,7 +5,7 @@ clc;
 close all;
 clear all;
 
-
+%{
 %% 1-a
 img = imread(fullfile('input', 'ps1-input0.png'));  % already grayscale
 %% TODO: Compute edge image img_edges
@@ -106,5 +106,64 @@ plot(theta(peaks(:, 2)), rho(peaks(:, 1)), 's', 'color', 'green');
 print('output/ps1-4-c-1.png');
 
 hough_lines_draw(img_mono, 'output/ps1-4-c-2.png', peaks, rho, theta);
+%}
 
+img = imread('input/ps1-input1.png');
+figure, imshow(img);
+
+img_mono = rgb2gray(img);
+figure, imshow(img_mono);
+
+% smooth the image
+gauss_f = fspecial('gaussian', 9, 4);
+img_smoothed = imfilter(img_mono, gauss_f, 'symmetric');
+figure, imshow(img_smoothed);
+imwrite(img_smoothed, 'output/ps1-5-a-1.png');
+
+% find the edge
+img_edges = edge(img_smoothed, 'canny', 6);
+figure, imshow(img_edges);
+imwrite(img_edges, 'output/ps1-5-a-2.png');
+
+
+H = hough_circles_acc(img_edges, 20);
+centers = hough_peaks(H, 10);
+figure;
+imshow(uint8(H), [], 'InitialMagnification', 'fit');
+xlabel('a'), ylabel('b');
+axis on, axis normal, hold on;
+plot(centers(:, 2), centers(:, 1), 's', 'color', 'green');
+
+figure, imshow(img_mono);
+theta = -90 : 89;
+radius = 20;
+for i = 1 : size(centers, 1)
+    a = centers(i, 1);
+    b = centers(i, 2);
+    x = a + radius * cos(theta);
+    y = b + radius * sin(theta);
+    
+    hold on; plot(y, x, 'color', 'green');
+end
+print('output/ps1-5-a-3.png');
+
+
+
+[centers, radii] = find_circles(img_edges, [20 50]);
+
+figure, imshow(img_mono);
+theta = -90 : 89;
+
+for r = 20 : 50
+    r_centers = centers(find(radii == r), :);
+
+    for i = 1 : size(r_centers, 1)
+        a = r_centers(i, 1);
+        b = r_centers(i, 2);
+        x = a + r * cos(theta);
+        y = b + r * sin(theta);
+        
+        hold on; plot(y, x, 'color', 'red');
+    end
+end
 
