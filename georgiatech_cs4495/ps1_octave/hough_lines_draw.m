@@ -11,16 +11,23 @@ function hough_lines_draw(img, outfile, peaks, rho, theta)
     % TODO: Your code here
     figure; 
     imshow(img);
-    x = 1 : size(img, 2);
+    
+    theta = theta / 180 * pi;
     
     for i = 1 : size(peaks, 1)
         peak = peaks(i, :);
         cur_rho = rho(peak(1));
         cur_theta = theta(peak(2));
+        
+        if(cur_theta == 0)
+            x = cur_rho;
+            y = 1 : size(img, 1);
+        else
+            x = 1 : size(img, 2);
+            y = (cur_rho - x * cos(cur_theta)) / sin(cur_theta);
+        end
        
-        y = (cur_rho - x * cos(cur_theta)) / sin(cur_theta);
-       
-        hold on; plot(x, y, 'color', 'green'); 
+        hold on; plot(x, y, 'color', 'green', 'MarkerSize', 2); 
     end
     
     print(outfile);

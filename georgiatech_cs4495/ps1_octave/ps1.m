@@ -26,8 +26,9 @@ xlabel('\theta'), ylabel('\rho');
 axis on, axis normal, hold on;
 colormap(gca, hot);
 
+
 %% 2-b
-peaks = hough_peaks(H, 15);  % defined in hough_peaks.m
+peaks = hough_peaks(H, 20);  % defined in hough_peaks.m
 %% TODO: Highlight peak locations on accumulator array, 
 % save as output/ps1-2-b-1.png
 figure;
@@ -108,6 +109,7 @@ print('output/ps1-4-c-1.png');
 hough_lines_draw(img_mono, 'output/ps1-4-c-2.png', peaks, rho, theta);
 %}
 
+%{
 img = imread('input/ps1-input1.png');
 figure, imshow(img);
 
@@ -125,7 +127,7 @@ img_edges = edge(img_smoothed, 'canny', 6);
 figure, imshow(img_edges);
 imwrite(img_edges, 'output/ps1-5-a-2.png');
 
-%{
+
 H = hough_circles_acc(img_edges, 20);
 centers = hough_peaks(H, 10);
 figure;
@@ -134,8 +136,10 @@ xlabel('a'), ylabel('b');
 axis on, axis normal, hold on;
 plot(centers(:, 2), centers(:, 1), 's', 'color', 'green');
 
+
 figure, imshow(img_mono);
-theta = -90 : 89;
+theta = 0 : 359;
+theta = theta / 180 * pi;
 radius = 20;
 for i = 1 : size(centers, 1)
     a = centers(i, 1);
@@ -146,14 +150,12 @@ for i = 1 : size(centers, 1)
     hold on; plot(y, x, 'color', 'green');
 end
 print('output/ps1-5-a-3.png');
-%}
 
 
-[centers, radii] = find_circles(img_edges, [15 50]);
-
+[centers, radii] = find_circles(img_edges, [20 30]);
 figure, imshow(img_mono);
-theta = 0 : 45;
-
+theta = 0 : 359;
+theta = theta / 180 * pi;
 for i = 1 : length(radii)
     radius = radii(i);
     a = centers(i, 1);
@@ -164,3 +166,28 @@ for i = 1 : length(radii)
     hold on; plot(y, x, 'color', 'green');
 end
 print('output/ps1-5-b-1.png');
+%}
+
+
+img = imread('input/ps1-input2.png');
+img_mono = rgb2gray(img);
+figure, imshow(img_mono);
+
+gauss_f = fspecial('gaussian', 9, 3);
+img_smoothed = imfilter(img_mono, gauss_f, 'symmetric');
+figure, imshow(img_smoothed);
+
+img_edges = edge(img_smoothed, 'canny');
+figure, imshow(img_edges);
+
+
+[H, theta, rho] = hough_lines_acc(img_edges);
+peaks = hough_peaks(H, 20, 'Threshold', 0.3 * max(H(:)));
+figure;
+imshow(H, [], 'XData', theta, 'YData', rho, 'InitialMagnification', 'fit');
+xlabel('\theta'), ylabel('\rho');
+axis on, axis normal, hold on;
+plot(theta(peaks(:, 2)), rho(peaks(:, 1)), 's', 'color', 'green');
+
+hough_lines_draw(img_smoothed, 'output/ps1-6-a-1.png', peaks, rho, theta);
+

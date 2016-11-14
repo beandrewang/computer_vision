@@ -22,29 +22,33 @@ function [H, theta, rho] = hough_lines_acc(BW, varargin)
 
     rhoStep = p.Results.RhoResolution;
     theta = p.Results.Theta;
+    
+    theta_radian = theta / 180 * pi;
 
     %% TODO: Your code here
     [h, w] = size(BW); 
     
     D = sqrt((h - 1) ^ 2 + (w - 1) ^ 2);
-    % nrho = 2 * (ceil(D / rhoStep));
     diagonal = rhoStep * ceil(D / rhoStep);
     rho = -diagonal : rhoStep : diagonal;
-    % ntheta = length(theta);
     H = zeros(length(rho), length(theta));
     
     for i = 1 : h
         for j = 1 : w
             if(BW(i, j) == 1)
                 for cur_theta_index = 1 : 180
-                    cur_theta = theta(cur_theta_index);
+                    cur_theta = theta_radian(cur_theta_index);
                     cur_rho = j * cos(cur_theta) + i * sin(cur_theta);
-                    cur_rho_index = find(abs(rho - cur_rho) < rhoStep)(1);
+                    cur_rho_index = find(abs(rho - cur_rho) < rhoStep);
+                    if(length(cur_rho_index) == 0)
+                        continue;
+                    else
+                        cur_rho_index = cur_rho_index(1);
+                    end
                     H(cur_rho_index, cur_theta_index) = H(cur_rho_index, ...
                         cur_theta_index) + 1;
                 end
             end
-            
         end  
     end
     
