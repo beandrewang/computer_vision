@@ -6,4 +6,7 @@ function D = disparity_ncorr(L, R)
     % D: Output disparity map, same size as L, R
 
     % TODO: Your code here
+    
 end
+
+
