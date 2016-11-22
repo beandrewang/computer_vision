@@ -61,7 +61,7 @@ disp(C);
 pta = load('input/pts2d-pic_a.txt');
 ptb = load('input/pts2d-pic_b.txt');
 
-F = fundamental(pta, ptb);
+[F, d] = fundamental(pta, ptb);
 printf('\n');
 printf('The fundamental matrix generated from your least squares function is: \n');
 disp(F);
@@ -71,6 +71,7 @@ epipolar_line_draw(imga, F', ptb, pta, 'output/ps3-2-c-1.png');
 
 imgb = imread('input/pic_b.jpg');
 epipolar_line_draw(imgb, F, pta, ptb, 'output/ps3-2-c-2.png');
+
 
 [normpta, Ta] = norm_pt(pta);
 [normptb, Tb] = norm_pt(ptb);
