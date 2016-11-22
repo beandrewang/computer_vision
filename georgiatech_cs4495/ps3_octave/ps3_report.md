@@ -1,3 +1,5 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
 ## 1 - a
 
 The matrix M you recovered from the normalized points(3x4)
@@ -84,4 +86,26 @@ $$
 -2.35330 \\
  0.27232 \\
 end{bmatrix}
+$$
+
+## 2 - a
+
+The fundamental matrix generated from your least squares function
+
+$$
+\begin{bmatrix}
+-6.6068e-007 & 7.9064e-006 & -1.8848e-003 \\
+ 8.8267e-006 & 1.2186e-006 &  1.7228e-002 \\
+-9.0854e-004 & -2.6420e-002 & 1.0000e+000 \\
+\end{bmatrix}
+$$
+
+Fundamental matrix 
+
+$$
+\begin{bmatrix}
+-5.3588e-007 & 7.8997e-006 & -1.8848e-003 \\
+8.8382e-006 & 1.2180e-006 & 1.7228e-002 \\
+-9.0854e-004 & -2.6420e-002 & 1.0000e+000 \\
+\end{bmatrix}
 $$
