@@ -2,7 +2,7 @@
 
 The matrix M you recovered from the normalized points(3x4)
 
-<script type="text/javascript" async src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 $$
 \begin{bmatrix}
 0.7678583 & -0.4938480 & -0.0233978 & 0.0067444 \\
