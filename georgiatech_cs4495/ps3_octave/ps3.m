@@ -72,3 +72,21 @@ epipolar_line_draw(imga, F', ptb, pta, 'output/ps3-2-c-1.png');
 imgb = imread('input/pic_b.jpg');
 epipolar_line_draw(imgb, F, pta, ptb, 'output/ps3-2-c-2.png');
 
+[normpta, Ta] = norm_pt(pta);
+[normptb, Tb] = norm_pt(ptb);
+F = fundamental(normpta, normptb);
+printf('Ta: \n');
+disp(Ta);
+printf('Tb: \n');
+disp(Tb);
+printf('F: \n');
+disp(F);
+
+F = Tb' * F * Ta;
+printf('F: \n');
+disp(F);
+
+% there might be something wrong with the F, the epipolar line is not better 
+% than the original.
+epipolar_line_draw(imga, F', ptb, pta, 'output/ps3-2-e-1.png');
+epipolar_line_draw(imgb, F, pta, ptb, 'output/ps3-2-e-2.png');
