@@ -1,9 +1,8 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
 ## 1 - a
 
 The matrix M you recovered from the normalized points(3x4)
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 $$
 \begin{bmatrix}
 0.7678583 & -0.4938480 & -0.0233978 & 0.0067444 \\
@@ -15,6 +14,7 @@ $$
 
 The < u, v > projection of the last point given your M matrix 
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 $$
 \begin{bmatrix}
 0.230255 \\
@@ -24,6 +24,7 @@ $$
 
 The residual between that projected location and the actual one given
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 $$
 0.3311468 \\
 0.0366748 \\ 
@@ -47,6 +48,7 @@ $$
 
 Average residual for each trial of each k (10x3)
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 $$
 \begin{bmatrix}
 0.54197 &  0.79157 &  0.67537 \\
@@ -68,6 +70,7 @@ Explain any difference you see between the results for the different k’s
 
 The best M matrix (3x4) 
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 $$
 \begin{bmatrix}
  0.7670573 & -0.4980520 & -0.0129625 &  0.0083361 \\
@@ -80,6 +83,7 @@ $$
 
 The location of the camera in real 3D world coordinates 
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 $$
 \begin{bmatrix}
 -1.53427 \\
@@ -92,6 +96,7 @@ $$
 
 The fundamental matrix generated from your least squares function
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 $$
 \begin{bmatrix}
 -6.6068e-007 & 7.9064e-006 & -1.8848e-003 \\
@@ -102,6 +107,7 @@ $$
 
 Fundamental matrix 
 
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 $$
 \begin{bmatrix}
 -5.3588e-007 & 7.8997e-006 & -1.8848e-003 \\
