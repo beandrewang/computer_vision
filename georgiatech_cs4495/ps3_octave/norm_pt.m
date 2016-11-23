@@ -1,6 +1,6 @@
 function [normpt T] = norm_pt(pt)
-    cu = mean(pt(:));
-    cv = mean(pt(:));
+    cu = mean(pt(:, 1));
+    cv = mean(pt(:, 2));
     
     s = 1 / std(pt(:));
     
