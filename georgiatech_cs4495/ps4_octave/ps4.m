@@ -38,6 +38,11 @@ R = harris_detector(img);
 figure; imshow(R, []);
 print('output/ps4-1-b-1.png');
 
+corners = harris_corner(R);
+figure; imshow(img);
+hold on; plot(corners(:, 2), corners(:, 1), 'o');
+
+%{
 img = imread('input/transB.jpg');
 R = harris_detector(img);
 figure; imshow(R, []);
@@ -52,3 +57,5 @@ img = imread('input/simB.jpg');
 R = harris_detector(img);
 figure; imshow(R, []);
 print('output/ps4-1-b-4.png');
+%}
+
