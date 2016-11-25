@@ -33,6 +33,7 @@ print('output/ps4-1-a-2.png');
 %% have to scale the image values to be in a range of 0-255 or 0.0 to 1.0, 
 %% depending upon how you deal with images.)
 
+% transA image with Harris corners marked as  ps4-1-c-1.png
 img = imread('input/transA.jpg');
 R = harris_detector(img);
 figure; imshow(R, []);
@@ -41,21 +42,39 @@ print('output/ps4-1-b-1.png');
 corners = harris_corner(R);
 figure; imshow(img);
 hold on; plot(corners(:, 2), corners(:, 1), 'o');
+print('output/ps4-1-c-1.png');
 
-%{
+% transB image with Harris corners marked as  ps4-1-c-2.png
 img = imread('input/transB.jpg');
 R = harris_detector(img);
 figure; imshow(R, []);
 print('output/ps4-1-b-2.png');
 
+corners = harris_corner(R);
+figure; imshow(img);
+hold on; plot(corners(:, 2), corners(:, 1), 'o');
+print('output/ps4-1-c-2.png');
+
+% simA    image with Harris corners marked as  ps4-1-c-3.png
 img = imread('input/simA.jpg');
 R = harris_detector(img);
 figure; imshow(R, []);
 print('output/ps4-1-b-3.png');
 
+corners = harris_corner(R);
+figure; imshow(img);
+hold on; plot(corners(:, 2), corners(:, 1), 'o');
+print('output/ps4-1-c-3.png');
+
+% simB    image with Harris corners marked as  ps4-1-c-4.png
 img = imread('input/simB.jpg');
 R = harris_detector(img);
 figure; imshow(R, []);
 print('output/ps4-1-b-4.png');
-%}
+
+corners = harris_corner(R);
+figure; imshow(img);
+hold on; plot(corners(:, 2), corners(:, 1), 'o');
+print('output/ps4-1-c-4.png');
+
 
