@@ -11,7 +11,7 @@ function [u, v] = basic_lk(img1, img2)
 	
 	sobel = fspecial('sobel');
 	Iy = imfilter(img_smoothed1, sobel);
-	Ix = imfilter(img_smoothed2, -sobel');
+	Ix = imfilter(img_smoothed1, -sobel');
 	It = img2 - img1;
 	
 	IxIx = Ix .^ 2;
@@ -31,11 +31,11 @@ function [u, v] = basic_lk(img1, img2)
 	
 	for i = 1 : size(img1, 1)
 		for j = 1 : size(img1, 2)
-			v = [IxIx_win(i, j), IxIy_win(i, j); ...
+			dir = [IxIx_win(i, j), IxIy_win(i, j); ...
 			     IxIy_win(i, j), IyIy_win(i, j)] \ ...
 			   -[IxIt_win(i, j); IyIt_win(i, j)];
-			u(i, j) = v(1);
-			v(i, j) = v(2);
+			u(i, j) = dir(1);
+			v(i, j) = dir(2);
 		end
 	end
 end
