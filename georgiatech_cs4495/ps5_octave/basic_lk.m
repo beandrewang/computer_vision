@@ -1,4 +1,4 @@
-function [u, v] = basic_lk(img1, img2)
+function [u, v] = basic_lk(img1, img2, win_size)
 
 	u = zeros(size(img1));
 	v = u;
@@ -20,7 +20,6 @@ function [u, v] = basic_lk(img1, img2)
 	IxIt = Ix .* It;
 	IyIt = Iy .* It;
 	
-	win_size = 5;
 	win = ones(win_size, win_size);
 	
 	IxIx_win = imfilter(IxIx, win);
